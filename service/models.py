@@ -84,34 +84,6 @@ class Product(db.Model):
     # INSTANCE METHODS
     ##################################################
 
-    def __repr__(self):
-        return f"<Product {self.name} id=[{self.id}]>"
-
-    def create(self):
-        """
-        Creates a Product to the database
-        """
-        logger.info("Creating %s", self.name)
-        # id must be none to generate next primary key
-        self.id = None  # pylint: disable=invalid-name
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        """
-        Updates a Product to the database
-        """
-        logger.info("Saving %s", self.name)
-        if not self.id:
-            raise DataValidationError("Update called with empty ID field")
-        db.session.commit()
-
-    def delete(self):
-        """Removes a Product from the data store"""
-        logger.info("Deleting %s", self.name)
-        db.session.delete(self)
-        db.session.commit()
-
     def serialize(self) -> dict:
         """Serializes a Product into a dictionary"""
         return {
